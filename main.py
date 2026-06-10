@@ -1,3 +1,5 @@
+from tools import execute_tool
+from router import decide_tool
 from llm import ask_llm
 from tools import(
     open_chrome
@@ -14,10 +16,11 @@ while True:
         print("Siri: Goodbye!")
         break
     
-    if "open chrome" in query:
-        print(f"Jackie: {open_chrome()}")
+    tool = decide_tool(query)
+    if tool != "NONE":
+        result = execute_tool(tool)
+        print(f"Siri: {result}\n")
         continue
-    
 
     response = ask_llm(query)
 
